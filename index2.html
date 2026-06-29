@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Navigator Gas — Crew Survey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --blue:        #283287;
+      --wave:        #009ee3;
+      --grey:        #6f6f6e;
+      --deep:        #282258;
+      --orange:      #c84f36;
+      --green:       #009878;
+      --anchor:      #edf3f7;
+      --anchor-pale: #f5f9fb;
+      --white:       #ffffff;
+      --font-title:  'Blinker', sans-serif;
+      --font-body:   'IBM Plex Sans', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--blue);
+      padding: 20px 32px;
+      flex: 0 0 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-survey-label {
+      font-family: var(--font-title);
+      font-size: 32px;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .header-survey-sub {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.04em;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-wordmark {
+      height: 18px;
+      filter: brightness(0) invert(1);
+    }
+
+    .logo-sextant { width: 32px; height: 32px; }
+
+    /* ── QUESTION SECTION ── */
+    .question-section {
+      background: var(--white);
+      padding: 0 32px;
+      flex: 0 0 30%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      position: relative;
+    }
+
+    .question-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--blue);
+    }
+
+    .question-eyebrow {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--wave);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .question-text {
+      font-family: var(--font-title);
+      font-size: 42px;
+      color: var(--deep);
+      line-height: 1.25;
+    }
+
+    /* ── RANK STRIP ── */
+    .rank-section {
+      padding: 0 32px;
+      flex: 0 0 16%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      background: var(--anchor);
+      border-bottom: none;
+      border-left: 1px solid var(--wave);
+      transition: background 0.25s;
+    }
+
+    .rank-section.done {
+      background: var(--anchor-pale);
+      border-left: 1px solid transparent;
+    }
+
+    .rank-label {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .rank-pills {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-rank {
+      flex: 1;
+      padding: 14px 8px;
+      border: 2px solid rgba(0,158,227,0.3);
+      border-radius: 50px;
+      background: var(--white);
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--blue);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .btn-rank:active { transform: scale(0.97); }
+
+    .btn-rank.selected {
+      background: var(--wave);
+      border-color: var(--wave);
+      color: var(--white);
+    }
+
+    /* ── ANSWER SECTION ── */
+    .answer-section {
+      flex: 0 0 38%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 32px 8px;
+      gap: 8px;
+      overflow: hidden;
+      background: var(--anchor-pale);
+      border-left: 1px solid transparent;
+      transition: background 0.25s, border-left-color 0.4s;
+      position: relative;
+    }
+
+    .answer-section.active {
+      background: var(--anchor);
+      border-left: 1px solid var(--wave);
+      animation: answer-pulse 2.4s ease-in-out infinite;
+    }
+
+    .answer-label {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .rank-hint {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--wave);
+      font-style: italic;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .rank-hint.hidden { opacity: 0; pointer-events: none; }
+
+    .answer-buttons {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .btn-answer {
+      flex: 1;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 28px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.1s, filter 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .btn-answer:active:not(:disabled) {
+      transform: scale(0.98);
+      filter: brightness(0.92);
+    }
+
+    /* Default colour scale — first = good (green → blue) */
+    .btn-answer:nth-child(1) { background: #2aaa88; color: white; }
+    .btn-answer:nth-child(2) { background: #00b4a0; color: white; }
+    .btn-answer:nth-child(3) { background: #009ee3; color: white; }
+    .btn-answer:nth-child(4) { background: #5572c4; color: white; }
+    .btn-answer:nth-child(5) { background: #283287; color: white; }
+
+    .btn-answer:disabled {
+      background: rgba(40,50,135,0.08) !important;
+      color: rgba(40,50,135,0.25) !important;
+      cursor: not-allowed;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid rgba(40,50,135,0.08);
+      padding: 10px 32px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer span {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--grey);
+    }
+
+    /* ── THANK YOU OVERLAY ── */
+    .thankyou-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--wave);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      z-index: 10;
+    }
+
+    .thankyou-overlay.show { display: flex; }
+
+    .thankyou-check {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thankyou-check svg {
+      width: 52px;
+      height: 52px;
+      stroke: white;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .thankyou-title {
+      font-family: var(--font-title);
+      font-size: 72px;
+      color: white;
+    }
+
+    .thankyou-sub {
+      font-family: var(--font-body);
+      font-size: 26px;
+      color: rgba(255,255,255,0.82);
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.6;
+      padding: 0 24px;
+    }
+
+    .thankyou-countdown {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+    }
+
+    .countdown-bar {
+      position: fixed;
+      bottom: 0; left: 0;
+      height: 5px;
+      background: rgba(255,255,255,0.45);
+      transition: width linear;
+      z-index: 11;
+    }
+
+    /* ── OFFLINE BADGE ── */
+    .offline-badge {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: var(--orange);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .offline-badge.show { display: flex; }
+
+    /* ── WAVE ANIMATION ── */
+    .wave-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 28px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .wave-wrap svg {
+      width: 200%;
+      height: 100%;
+      animation: wave-scroll 7s linear infinite;
+    }
+
+    @keyframes wave-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── RANK PULSE ── */
+    @keyframes rank-pulse {
+      0%   { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 8px 0 12px -4px rgba(0,158,227,0.4); }
+      50%  { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 16px 0 20px -4px rgba(0,158,227,0.15); }
+      100% { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 8px 0 12px -4px rgba(0,158,227,0.4); }
+    }
+
+    @keyframes answer-pulse {
+      0%   { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 8px 0 12px -4px rgba(0,158,227,0.4); }
+      50%  { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 16px 0 20px -4px rgba(0,158,227,0.15); }
+      100% { box-shadow: inset 4px 0 0 0 rgba(0,158,227,1), inset 8px 0 12px -4px rgba(0,158,227,0.4); }
+    }
+
+    .rank-section:not(.done) {
+      animation: rank-pulse 2.4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <span class="header-survey-label">Crew Survey</span>
+      <span class="header-survey-sub">Psychological Safety &amp; Wellbeing</span>
+    </div>
+    <div class="logo-wrap">
+      <img class="logo-wordmark" src="NG_Logo_Col_2025.svg" alt="Navigator Gas" onerror="this.style.display='none'">
+      <svg class="logo-sextant" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+        <path fill="white" d="M21.56 14.29c-2.43 2.3-5.58 3.69-8.91 3.93v-.28c3.22-.24 6.26-1.58 8.6-3.8l-1.24-1.18c-.3.28-.6.53-.91.75l-4.78-5.76h1.55v.59h.9v-.39h1.87v.39h.75V6.34h-.75v.41h-1.86v-.41h-.86v.59h-2.41l-.85-.99c1.58-.62 2.35-2.4 1.73-3.98C14.06.38 12.28-.39 10.7.23 9.12.85 8.35 2.63 8.97 4.21c.31.79.94 1.42 1.73 1.73L8.08 9.1l-1.03-.84-.3.33-.86-.75-.57.63.86.75-.28.31 1.08.89-2.75 3.33c-.31-.23-.61-.48-.9-.75H3.3L2.08 14.29c2.34 2.22 5.38 3.57 8.6 3.8v.27c-3.33-.24-6.46-1.63-8.88-3.92L0 15.69c2.48 2.35 5.62 3.87 9 4.36v.84c0 .14.04.24.08.24h4.96c.04 0 .08-.1.08-.24v-.84c3.38-.49 6.52-2.02 9-4.36l-1.56-1.4zM12.65 7.67l5.55 6.71c-1.67 1.07-3.57 1.72-5.55 1.9V7.67zm-2.25 8.61c-1.98-.18-3.88-.83-5.55-1.9l5.55-6.71v8.61z"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- QUESTION -->
+  <div class="question-section">
+    <p class="question-eyebrow" id="question-category">Team</p>
+    <p class="question-text" id="question-text">How good is your team in supporting good safety behaviour onboard?</p>
+  </div>
+
+  <!-- RANK STRIP -->
+  <div class="rank-section" id="rank-section">
+    <p class="rank-label">Select your rank</p>
+    <div class="rank-pills" id="rank-pills"></div>
+  </div>
+
+  <!-- ANSWERS -->
+  <div class="answer-section" id="answer-section">
+    <p class="answer-label">Your answer</p>
+    <p class="rank-hint" id="rank-hint">Select your rank above to answer</p>
+    <div class="answer-buttons" id="answer-buttons"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Your response is anonymous &nbsp;·&nbsp; Responses are stored securely</span>
+    <div class="wave-wrap">
+      <svg viewBox="0 0 1440 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,22 C120,44 240,0 360,22 C480,44 600,0 720,22 C840,44 960,0 1080,22 C1200,44 1320,0 1440,22 L1440,44 L0,44 Z" fill="rgba(0,158,227,0.12)"/>
+        <path d="M0,30 C180,10 360,44 540,30 C720,16 900,44 1080,30 C1260,16 1380,40 1440,30 L1440,44 L0,44 Z" fill="rgba(0,158,227,0.07)"/>
+      </svg>
+    </div>
+  </footer>
+
+</div>
+
+<!-- THANK YOU OVERLAY -->
+<div class="thankyou-overlay" id="thankyou">
+  <div class="thankyou-check">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+  </div>
+  <p class="thankyou-title">Thank you</p>
+  <p class="thankyou-sub">Your response has been recorded. It helps us make Navigator Gas a better place to work.</p>
+  <p class="thankyou-countdown">Returning in <span id="countdown-num">5</span> seconds</p>
+</div>
+
+<div class="countdown-bar" id="countdown-bar" style="width:0; display:none;"></div>
+
+<div class="offline-badge" id="offline-badge">
+  <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="white"/></svg>
+  Offline — response saved
+</div>
+
+<script src="sync.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
