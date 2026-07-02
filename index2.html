@@ -46,7 +46,7 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: env(safe-area-inset-bottom);
+      bottom: 0;
       overflow: hidden;
       background: var(--white);
     }
@@ -281,7 +281,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 1;
+      flex: 0 0 auto;
+      min-height: 40px;
       position: relative;
       overflow: hidden;
     }
@@ -299,7 +300,8 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: env(safe-area-inset-bottom);
+      bottom: 0;
+      padding-bottom: env(safe-area-inset-bottom);
       background: var(--wave);
       flex-direction: column;
       align-items: center;
@@ -462,6 +464,7 @@
     <span>Your response is anonymous &nbsp;·&nbsp; Responses are stored securely</span>
 
   </footer>
+  <div style="flex-shrink:0; height:env(safe-area-inset-bottom); background:var(--white);"></div>
 
 </div>
 
