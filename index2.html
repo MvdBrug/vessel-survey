@@ -47,6 +47,7 @@
       left: 0;
       right: 0;
       bottom: 0;
+      padding-bottom: env(safe-area-inset-bottom);
       overflow: hidden;
     }
 
@@ -279,13 +280,13 @@
     footer {
       background: var(--white);
       border-top: 1px solid rgba(40,50,135,0.08);
-      padding: 8px 32px 0;
+      padding: 8px 32px calc(8px + env(safe-area-inset-bottom));
       display: flex;
       align-items: center;
       justify-content: center;
       flex: 0 0 5%;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       min-height: 0;
     }
 
