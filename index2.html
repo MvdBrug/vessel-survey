@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Crew Survey">
+  <meta name="theme-color" content="#283287">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <meta name="theme-color" content="#283287">
   <title>Navigator Gas — Crew Survey</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     :root {
       --blue:        #283287;
@@ -30,23 +31,22 @@
       --font-body:   'IBM Plex Sans', sans-serif;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100dvh;
+    html { scroll-behavior: smooth; }
+
+    body {
       font-family: var(--font-body);
       background: var(--white);
+      min-height: 100dvh;
       overflow-x: hidden;
     }
 
+    /* Exact same pattern as WeCare */
     .app {
       display: flex;
       flex-direction: column;
       height: 100dvh;
       max-height: 100dvh;
-      width: 100vw;
       overflow: hidden;
-      background: var(--white);
     }
 
     /* ── HEADER ── */
@@ -87,12 +87,8 @@
       gap: 16px;
     }
 
-    .logo-wordmark {
-      height: 32px;
-      filter: brightness(0) invert(1);
-    }
-
-    .logo-sextant { width: 64px; height: 64px; display: block; margin: auto 0; }
+    .logo-wordmark { height: 32px; filter: brightness(0) invert(1); }
+    .logo-sextant { width: 64px; height: 64px; display: block; }
 
     /* ── QUESTION SECTION ── */
     .question-section {
@@ -139,7 +135,6 @@
       justify-content: center;
       gap: 12px;
       background: var(--anchor);
-      border-bottom: none;
       border-left: 1px solid var(--wave);
       transition: background 0.25s;
     }
@@ -158,10 +153,7 @@
       text-transform: uppercase;
     }
 
-    .rank-pills {
-      display: flex;
-      gap: 10px;
-    }
+    .rank-pills { display: flex; gap: 10px; }
 
     .btn-rank {
       flex: 1;
@@ -257,7 +249,6 @@
       filter: brightness(0.92);
     }
 
-    /* Default colour scale — first = good (green → blue) */
     .btn-answer:nth-child(1) { color: #2aaa88; border-color: #2aaa88; }
     .btn-answer:nth-child(2) { color: #00b4a0; border-color: #00b4a0; }
     .btn-answer:nth-child(3) { color: #009ee3; border-color: #009ee3; }
@@ -275,13 +266,11 @@
     footer {
       background: var(--white);
       border-top: 1px solid rgba(40,50,135,0.08);
-      padding: 8px 32px;
+      padding: 8px 32px 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
-      min-height: 40px;
-      padding-bottom: 20px;
+      flex: 1;
       position: relative;
       overflow: hidden;
     }
@@ -296,17 +285,14 @@
     .thankyou-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding-bottom: env(safe-area-inset-bottom);
+      inset: 0;
       background: var(--wave);
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 24px;
       z-index: 10;
+      padding-bottom: 40px;
     }
 
     .thankyou-overlay.show { display: flex; }
@@ -322,11 +308,8 @@
     }
 
     .thankyou-check svg {
-      width: 52px;
-      height: 52px;
-      stroke: white;
-      stroke-width: 2.5;
-      fill: none;
+      width: 52px; height: 52px;
+      stroke: white; stroke-width: 2.5; fill: none;
     }
 
     .thankyou-title {
@@ -364,7 +347,7 @@
     /* ── OFFLINE BADGE ── */
     .offline-badge {
       position: fixed;
-      bottom: 20px; right: 20px;
+      bottom: 40px; right: 20px;
       background: var(--orange);
       color: white;
       font-family: var(--font-body);
@@ -379,29 +362,6 @@
     }
 
     .offline-badge.show { display: flex; }
-
-    /* ── WAVE ANIMATION ── */
-    .wave-wrap {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 28px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .wave-wrap svg {
-      width: 200%;
-      height: 100%;
-      animation: wave-scroll 7s linear infinite;
-    }
-
-    @keyframes wave-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
 
     /* ── RANK PULSE ── */
     @keyframes rank-pulse {
@@ -441,7 +401,7 @@
 
   <!-- QUESTION -->
   <div class="question-section">
-    <p class="question-eyebrow" id="question-category">Team</p>
+    <p class="question-eyebrow" id="question-category">Safety</p>
     <p class="question-text" id="question-text">How good is your team in supporting good safety behaviour onboard?</p>
   </div>
 
@@ -461,7 +421,6 @@
   <!-- FOOTER -->
   <footer>
     <span>Your response is anonymous &nbsp;·&nbsp; Responses are stored securely</span>
-
   </footer>
 
 </div>
