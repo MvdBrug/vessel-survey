@@ -39,11 +39,6 @@
       overflow: hidden;
     }
 
-    /* Safe area background colours */
-    html {
-      background: var(--white);
-    }
-
     .app {
       display: flex;
       flex-direction: column;
@@ -51,9 +46,8 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
+      bottom: env(safe-area-inset-bottom);
       overflow: hidden;
-      padding-bottom: env(safe-area-inset-bottom);
       background: var(--white);
     }
 
@@ -305,14 +299,13 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
+      bottom: env(safe-area-inset-bottom);
       background: var(--wave);
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 24px;
       z-index: 10;
-      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .thankyou-overlay.show { display: flex; }
