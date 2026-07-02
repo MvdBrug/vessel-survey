@@ -39,6 +39,19 @@
       overflow: hidden;
     }
 
+    /* Fill safe area below footer with white to match */
+    body::after {
+      content: '';
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-bottom);
+      background: var(--white);
+      z-index: 5;
+    }
+
     .app {
       display: flex;
       flex-direction: column;
@@ -47,7 +60,6 @@
       left: 0;
       right: 0;
       bottom: 0;
-      padding-bottom: env(safe-area-inset-bottom);
       overflow: hidden;
     }
 
