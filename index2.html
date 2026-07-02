@@ -49,6 +49,7 @@
       flex-direction: column;
       width: 100vw;
       height: 100dvh;
+      height: calc(var(--vh, 1vh) * 100);
       overflow: hidden;
     }
 
@@ -287,7 +288,7 @@
       justify-content: center;
       flex: 0 0 5%;
       position: relative;
-      overflow: visible;
+      overflow: hidden;
       min-height: 0;
     }
 
@@ -462,12 +463,7 @@
   <!-- FOOTER -->
   <footer>
     <span>Your response is anonymous &nbsp;·&nbsp; Responses are stored securely</span>
-    <div class="wave-wrap">
-      <svg viewBox="0 0 1440 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,22 C120,44 240,0 360,22 C480,44 600,0 720,22 C840,44 960,0 1080,22 C1200,44 1320,0 1440,22 L1440,44 L0,44 Z" fill="rgba(0,158,227,0.12)"/>
-        <path d="M0,30 C180,10 360,44 540,30 C720,16 900,44 1080,30 C1260,16 1380,40 1440,30 L1440,44 L0,44 Z" fill="rgba(0,158,227,0.07)"/>
-      </svg>
-    </div>
+
   </footer>
 
 </div>
@@ -489,6 +485,17 @@
   Offline — response saved
 </div>
 
+<script>
+  // Force correct viewport height on load and orientation change
+  function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.querySelector('.app').style.height = `${window.innerHeight}px`;
+  }
+  setVH();
+  window.addEventListener('resize', setVH);
+  window.addEventListener('orientationchange', () => setTimeout(setVH, 100));
+</script>
 <script src="sync.js"></script>
 <script src="app.js"></script>
 
