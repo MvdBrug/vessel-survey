@@ -49,7 +49,7 @@
     /* ── HEADER ── */
     header {
       background: var(--blue);
-      padding: 20px 32px;
+      padding: 0 32px;
       flex: 0 0 10%;
       display: flex;
       align-items: center;
@@ -80,15 +80,16 @@
     .logo-wrap {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      gap: 16px;
     }
 
     .logo-wordmark {
-      height: 18px;
+      height: 32px;
       filter: brightness(0) invert(1);
     }
 
-    .logo-sextant { width: 32px; height: 32px; }
+    .logo-sextant { width: 64px; height: 64px; display: block; margin: auto 0; }
 
     /* ── QUESTION SECTION ── */
     .question-section {
@@ -130,7 +131,7 @@
     /* ── RANK STRIP ── */
     .rank-section {
       padding: 0 32px;
-      flex: 0 0 16%;
+      flex: 0 0 14%;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
@@ -186,11 +187,11 @@
 
     /* ── ANSWER SECTION ── */
     .answer-section {
-      flex: 0 0 38%;
+      flex: 0 0 41%;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      padding: 16px 32px 8px;
+      padding: 16px 32px 24px;
       gap: 8px;
       overflow: hidden;
       background: var(--anchor-pale);
@@ -230,15 +231,16 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 14px;
       overflow: hidden;
     }
 
     .btn-answer {
       flex: 1;
       width: 100%;
-      border: none;
-      border-radius: 14px;
+      border: 2px solid rgba(0,158,227,0.3);
+      border-radius: 50px;
+      background: var(--white);
       font-family: var(--font-body);
       font-size: 28px;
       font-weight: 500;
@@ -256,15 +258,16 @@
     }
 
     /* Default colour scale — first = good (green → blue) */
-    .btn-answer:nth-child(1) { background: #2aaa88; color: white; }
-    .btn-answer:nth-child(2) { background: #00b4a0; color: white; }
-    .btn-answer:nth-child(3) { background: #009ee3; color: white; }
-    .btn-answer:nth-child(4) { background: #5572c4; color: white; }
-    .btn-answer:nth-child(5) { background: #283287; color: white; }
+    .btn-answer:nth-child(1) { color: #2aaa88; border-color: #2aaa88; }
+    .btn-answer:nth-child(2) { color: #00b4a0; border-color: #00b4a0; }
+    .btn-answer:nth-child(3) { color: #009ee3; border-color: #009ee3; }
+    .btn-answer:nth-child(4) { color: #5572c4; border-color: #5572c4; }
+    .btn-answer:nth-child(5) { color: #283287; border-color: #283287; }
 
     .btn-answer:disabled {
-      background: rgba(40,50,135,0.08) !important;
-      color: rgba(40,50,135,0.25) !important;
+      background: var(--white) !important;
+      color: rgba(40,50,135,0.2) !important;
+      border-color: rgba(40,50,135,0.15) !important;
       cursor: not-allowed;
     }
 
@@ -272,13 +275,14 @@
     footer {
       background: var(--white);
       border-top: 1px solid rgba(40,50,135,0.08);
-      padding: 10px 32px 0;
+      padding: 8px 32px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      flex: 0 0 5%;
       position: relative;
       overflow: hidden;
+      min-height: 0;
     }
 
     footer span {
@@ -424,7 +428,7 @@
     </div>
     <div class="logo-wrap">
       <img class="logo-wordmark" src="NG_Logo_Col_2025.svg" alt="Navigator Gas" onerror="this.style.display='none'">
-      <svg class="logo-sextant" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+      <svg class="logo-sextant" viewBox="0 0 30 22" xmlns="http://www.w3.org/2000/svg">
         <path fill="white" d="M21.56 14.29c-2.43 2.3-5.58 3.69-8.91 3.93v-.28c3.22-.24 6.26-1.58 8.6-3.8l-1.24-1.18c-.3.28-.6.53-.91.75l-4.78-5.76h1.55v.59h.9v-.39h1.87v.39h.75V6.34h-.75v.41h-1.86v-.41h-.86v.59h-2.41l-.85-.99c1.58-.62 2.35-2.4 1.73-3.98C14.06.38 12.28-.39 10.7.23 9.12.85 8.35 2.63 8.97 4.21c.31.79.94 1.42 1.73 1.73L8.08 9.1l-1.03-.84-.3.33-.86-.75-.57.63.86.75-.28.31 1.08.89-2.75 3.33c-.31-.23-.61-.48-.9-.75H3.3L2.08 14.29c2.34 2.22 5.38 3.57 8.6 3.8v.27c-3.33-.24-6.46-1.63-8.88-3.92L0 15.69c2.48 2.35 5.62 3.87 9 4.36v.84c0 .14.04.24.08.24h4.96c.04 0 .08-.1.08-.24v-.84c3.38-.49 6.52-2.02 9-4.36l-1.56-1.4zM12.65 7.67l5.55 6.71c-1.67 1.07-3.57 1.72-5.55 1.9V7.67zm-2.25 8.61c-1.98-.18-3.88-.83-5.55-1.9l5.55-6.71v8.61z"/>
       </svg>
     </div>

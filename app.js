@@ -127,8 +127,8 @@ function renderQuestion(question) {
     btn.className   = 'btn-answer';
     btn.textContent = opt;
     btn.disabled    = true;
-    btn.style.background = colours[i].bg;
-    btn.style.color      = colours[i].text;
+    btn.style.color       = colours[i].border;
+    btn.style.borderColor = colours[i].border;
     btn.addEventListener('click', () => selectAnswer(opt));
     container.appendChild(btn);
   });
@@ -138,11 +138,11 @@ function renderQuestion(question) {
 function getAnswerColours(count, isPositive) {
   // Green → Blue scale (positive = green at top, negative = blue at top)
   const scale = [
-    { bg: '#2aaa88', text: 'white' },
-    { bg: '#00b4a0', text: 'white' },
-    { bg: '#009ee3', text: 'white' },
-    { bg: '#5572c4', text: 'white' },
-    { bg: '#283287', text: 'white' }
+    { border: '#2aaa88' },
+    { border: '#00b4a0' },
+    { border: '#009ee3' },
+    { border: '#5572c4' },
+    { border: '#283287' }
   ];
 
   // Take evenly spaced colours based on count
@@ -173,6 +173,9 @@ function renderRanks(config) {
     btn.addEventListener('click', () => selectRank(btn, rank));
     container.appendChild(btn);
   });
+  // Ensure rank pills have correct inline style matching CSS
+  container.style.display = 'flex';
+  container.style.gap     = '10px';
 }
 
 // ── RANK SELECTION ────────────────────────────────────────────────
