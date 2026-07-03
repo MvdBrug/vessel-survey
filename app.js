@@ -1,5 +1,5 @@
 // ── CONFIG ──────────────────────────────────────────────────────
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const DB_NAME     = 'crewsurvey';
 const DB_VERSION  = 1;
 
