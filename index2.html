@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Crew Survey">
-  <meta name="theme-color" content="#009ee3">
+  <meta name="theme-color" content="#283287">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <title>Navigator Gas — Crew Survey</title>
@@ -53,7 +53,7 @@
     header {
       background: var(--blue);
       padding: 0 32px;
-      flex: 2;
+      flex: 1.8;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -68,14 +68,14 @@
 
     .header-survey-label {
       font-family: var(--font-title);
-      font-size: 32px;
+      font-size: 26px;
       color: var(--white);
       line-height: 1.1;
     }
 
     .header-survey-sub {
       font-family: var(--font-body);
-      font-size: 18px;
+      font-size: 14px;
       color: rgba(255,255,255,0.55);
       letter-spacing: 0.04em;
     }
@@ -87,14 +87,14 @@
       gap: 16px;
     }
 
-    .logo-wordmark { height: 32px; filter: brightness(0) invert(1); }
-    .logo-sextant { width: 64px; height: 64px; display: block; }
+    .logo-wordmark { height: 26px; filter: brightness(0) invert(1); }
+    .logo-sextant { width: 51px; height: 51px; display: block; }
 
     /* ── QUESTION SECTION ── */
     .question-section {
       background: var(--white);
       padding: 0 32px;
-      flex: 6;
+      flex: 5.5;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -129,10 +129,11 @@
     /* ── RANK STRIP ── */
     .rank-section {
       padding: 0 32px;
-      flex: 3;
+      flex: 2.2;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-top: 16px;
       gap: 12px;
       background: var(--anchor);
       border-left: 1px solid var(--wave);
@@ -157,7 +158,7 @@
 
     .btn-rank {
       flex: 0.9;
-      padding: 14px 8px;
+      padding: 20px 8px;
       border: 2px solid rgba(0,158,227,0.3);
       border-radius: 50px;
       background: var(--white);
@@ -180,7 +181,7 @@
 
     /* ── ANSWER SECTION ── */
     .answer-section {
-      flex: 8;
+      flex: 10;
       display: flex;
       flex-direction: column;
       padding: 16px 32px 24px;
@@ -249,36 +250,17 @@
       filter: brightness(0.92);
     }
 
-    .btn-answer:nth-child(1) { color: #2aaa88; border-color: #2aaa88; }
-    .btn-answer:nth-child(2) { color: #00b4a0; border-color: #00b4a0; }
-    .btn-answer:nth-child(3) { color: #009ee3; border-color: #009ee3; }
-    .btn-answer:nth-child(4) { color: #5572c4; border-color: #5572c4; }
-    .btn-answer:nth-child(5) { color: #283287; border-color: #283287; }
+    .btn-answer:nth-child(1) { color: #2aaa88; border-color: #2aaa88; background: rgba(42,170,136,0.04); }
+    .btn-answer:nth-child(2) { color: #00b4a0; border-color: #00b4a0; background: rgba(0,180,160,0.04); }
+    .btn-answer:nth-child(3) { color: #009ee3; border-color: #009ee3; background: rgba(0,158,227,0.04); }
+    .btn-answer:nth-child(4) { color: #5572c4; border-color: #5572c4; background: rgba(85,114,196,0.04); }
+    .btn-answer:nth-child(5) { color: #283287; border-color: #283287; background: rgba(40,50,135,0.04); }
 
     .btn-answer:disabled {
       background: var(--white) !important;
       color: rgba(40,50,135,0.2) !important;
       border-color: rgba(40,50,135,0.15) !important;
       cursor: not-allowed;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--white);
-      border-top: 1px solid rgba(40,50,135,0.08);
-      padding: 8px 32px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0.9;
-      position: relative;
-      overflow: hidden;
-    }
-
-    footer span {
-      font-family: var(--font-body);
-      font-size: 16px;
-      color: var(--grey);
     }
 
     /* ── THANK YOU OVERLAY ── */
@@ -330,7 +312,7 @@
 
     .thankyou-countdown {
       font-family: var(--font-body);
-      font-size: 18px;
+      font-size: 14px;
       color: rgba(255,255,255,0.55);
       margin-top: 4px;
     }
@@ -418,10 +400,6 @@
     <div class="answer-buttons" id="answer-buttons"></div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <span>Your response is anonymous &nbsp;·&nbsp; Responses are stored securely</span>
-  </footer>
 
 </div>
 
